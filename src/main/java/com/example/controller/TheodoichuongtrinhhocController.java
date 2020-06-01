@@ -79,8 +79,8 @@ public class TheodoichuongtrinhhocController {
         return new ResponseEntity<List<NoidunghoctapEntity>>(list,HttpStatus.OK);
     }*/
 
-    @RequestMapping(value = "/themnoidunghoctap",method = RequestMethod.POST)
-    public ResponseEntity<NoidunghoctapEntity> createOrUpdatenoidung( @RequestBody(required = false) NoidunghoctapEntity t) throws Exception {
+    @RequestMapping(value = "/themnoidunghoctap/{t}",method = RequestMethod.POST)
+    public ResponseEntity<NoidunghoctapEntity> createOrUpdatenoidung( @RequestBody(required = false) @PathVariable("t") NoidunghoctapEntity t) throws Exception {
         NoidunghoctapEntity updated = noidunghoctapService.createOrUpdateNoidung(t);
         return new ResponseEntity<NoidunghoctapEntity>(updated, new HttpHeaders(), HttpStatus.CREATED);
     }
