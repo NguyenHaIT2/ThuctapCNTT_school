@@ -7,10 +7,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.service.NoidunghoctapService;
 import com.example.service.LopNoidunghoctapService;
@@ -43,8 +40,8 @@ public class TheodoichuongtrinhhocController {
     }
 
     // Tim kiem noi dung hoc tap theo thoi gian
-    @RequestMapping(value = "/noidunghoctap/phuhuynh/timkiemnoidunghoctaptheothoigian",method = RequestMethod.GET)
-    public ResponseEntity<List<NoidunghoctapEntity>> listNoidunghoctapByTime(int nam, int thang, int tuan) throws Exception {
+    @RequestMapping(value = "/phuhuynh/timkiemnoidunghoctaptheothoigian/{nam}/{thang}/{tuan}",method = RequestMethod.GET)
+    public ResponseEntity<List<NoidunghoctapEntity>> listNoidunghoctapByTime(@PathVariable("nam") int nam, @PathVariable("thang") int thang, @PathVariable("tuan") int tuan) throws Exception {
         List<NoidunghoctapEntity> listNoidunghoctap = noidunghoctapService.getNoidungByThoigian(nam, thang, tuan);
         if(listNoidunghoctap.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -53,8 +50,8 @@ public class TheodoichuongtrinhhocController {
     }
 
     // Danh sach noi dung hoc tap theo lop
-    @RequestMapping(value = "/noidunghoctap",method = RequestMethod.GET)
-    public ResponseEntity<List<LopNoidunghoctapEntity>> listNoidunghoctapByMalop(int malop) throws Exception {
+    @RequestMapping(value = "/noidunghoctaptheolop/{malop}",method = RequestMethod.GET)
+    public ResponseEntity<List<LopNoidunghoctapEntity>> listNoidunghoctapByMalop(@PathVariable("malop") Long malop) throws Exception {
         List<LopNoidunghoctapEntity> listNoidunghoctap = lopNoidunghoctapService.getLopNoidunghoctapByMalop(malop);
         if(listNoidunghoctap.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -63,8 +60,8 @@ public class TheodoichuongtrinhhocController {
     }
 
     // Them noi dung hoc tap
-    @RequestMapping(value = "/noidunghoctap/giaovien/capnhapnoidunghoctap",method = RequestMethod.POST)
-    public ResponseEntity<List<NoidunghoctapEntity>> themNoidunghoctap(String ten, int nam, int thang, int tuan) throws Exception{
+    @RequestMapping(value = "/giaovien/capnhapnoidunghoctap/{ten}/{nam}/{thang}/{tuan}",method = RequestMethod.POST)
+    public ResponseEntity<List<NoidunghoctapEntity>> themNoidunghoctap(@PathVariable("ten") String ten, @PathVariable("nam") int nam,@PathVariable("thang") int thang, @PathVariable("tuan")int tuan) throws Exception{
 
         NoidunghoctapEntity newNoidung = new NoidunghoctapEntity();
         newNoidung.setId(noidunghoctapService.lastID()+1);
