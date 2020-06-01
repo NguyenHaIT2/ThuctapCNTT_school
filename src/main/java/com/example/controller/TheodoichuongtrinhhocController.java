@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class TheodoichuongtrinhhocController {
 
     // Danh sach noi dung hoc tap theo lop
     @RequestMapping(value = "/noidunghoctaptheolop/{malop}",method = RequestMethod.GET)
-    public ResponseEntity<List<LopNoidunghoctapEntity>> listNoidunghoctapByMalop(@PathVariable("malop") Long malop) throws Exception {
+    public ResponseEntity<List<LopNoidunghoctapEntity>> listNoidunghoctapByMalop(@PathVariable("malop") long malop) throws Exception {
         List<LopNoidunghoctapEntity> listNoidunghoctap = lopNoidunghoctapService.getLopNoidunghoctapByMalop(malop);
         if(listNoidunghoctap.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -60,7 +61,7 @@ public class TheodoichuongtrinhhocController {
     }
 
     // Them noi dung hoc tap
-    @RequestMapping(value = "/giaovien/capnhapnoidunghoctap/{ten}/{nam}/{thang}/{tuan}",method = RequestMethod.POST)
+    /*@RequestMapping(value = "/giaovien/capnhapnoidunghoctap",method = RequestMethod.POST)
     public ResponseEntity<List<NoidunghoctapEntity>> themNoidunghoctap(@PathVariable("ten") String ten, @PathVariable("nam") int nam,@PathVariable("thang") int thang, @PathVariable("tuan")int tuan) throws Exception{
 
         NoidunghoctapEntity newNoidung = new NoidunghoctapEntity();
@@ -76,6 +77,18 @@ public class TheodoichuongtrinhhocController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<NoidunghoctapEntity>>(list,HttpStatus.OK);
+    }*/
+
+    @RequestMapping(value = "/themnoidunghoctap",method = RequestMethod.POST)
+    public ResponseEntity<NoidunghoctapEntity> createOrUpdatenoidung( @RequestBody(required = false) NoidunghoctapEntity t) throws Exception {
+        NoidunghoctapEntity updated = noidunghoctapService.createOrUpdateNoidung(t);
+        return new ResponseEntity<NoidunghoctapEntity>(updated, new HttpHeaders(), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/xoanoidunghoctap/{id}",method = RequestMethod.DELETE)
+    public HttpStatus deleteNoidunghoctap(@PathVariable("id") long id) throws Exception {
+        noidunghoctapService.deleteNoidungById(id);
+        return HttpStatus.FORBIDDEN;
     }
 
 
