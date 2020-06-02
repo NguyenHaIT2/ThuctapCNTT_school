@@ -79,7 +79,7 @@ public class DiemdanhController {
 
         HocsinhDenEntity updatedden = hocsinhdenService.createOrUpdateHocsinhDen(updateden.get(0));
         return ResponseEntity.ok(updatedden);
-    }
+    }*/
 
     //Hien Thi Danh sach hoc sinh ve
     @RequestMapping(value= "/danhsachhocsinhve", method = RequestMethod.GET)
@@ -93,7 +93,7 @@ public class DiemdanhController {
 
     //Update bang Danhsach hoc sinh ve
 
-    @RequestMapping(value = "/danhsachhocsinhden/giaovien/capnhapden", method = RequestMethod.PUT)
+    /*@RequestMapping(value = "/danhsachhocsinhden/giaovien/capnhapden", method = RequestMethod.PUT)
     public ResponseEntity<HocsinhVeEntity> updateHocSinhve(long id,String image) throws Exception{
         List<HocsinhVeEntity> updateve = hocsinhveService.getHocsinhVeByMahocsinh(id);
         if(updateve == null){
